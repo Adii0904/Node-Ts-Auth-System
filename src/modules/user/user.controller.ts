@@ -1,21 +1,22 @@
 import getUserFromDB from "./user.service";
 import sendResponse from "../../utils/sendResponse";
+import asyncHandler from "../../utils/asyncHandler";
+import AppError from "../../errors/AppError";
 
 import { Request, Response } from "express";
 
-const getUser = (req: Request, res: Response) => {
-  // collecting the user info;
-
+const getUser = asyncHandler(async (req: Request, res: Response) => {
+  // getting the user;
   const user = getUserFromDB();
+  //throw new AppError(400, "testing custom error error middleware");
 
-  // after sending the response;
-
+  // sending the reponse;
   sendResponse(res, {
+    success: true,
     statusCode: 200,
     message: "user data fetched successfully",
-    success: true,
     data: user,
   });
-};
+});
 
 export default getUser;
