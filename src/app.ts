@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 // here is the main logic file;
 import userRoutes from "./modules/user/user.routes";
+import globalErrorHandler from "./middleware/globalErrorHandler";
 
 const app = express();
 
@@ -22,5 +23,8 @@ app.get("/", (req, res) => {
 // setting the final routes;
 
 app.use("/api/users", userRoutes);
+
+// adding the error middleware
+app.use(globalErrorHandler);
 
 export default app;
